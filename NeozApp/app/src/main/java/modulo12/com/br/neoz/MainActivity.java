@@ -14,37 +14,31 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import modulo12.com.br.neoz.Adapters.CardsAdapter;
-import modulo12.com.br.neoz.ListData.CardsData;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import modulo12.com.br.neoz.MapAPI.Source;
 
 public class MainActivity extends AppCompatActivity {
 
     public static String LINK_NEWS_API = "https://newsapi.org/v1/sources";
     public ArrayList<String> sourcesNames = new ArrayList<String>();
-    public ArrayList<String> urlSourcesNames = new ArrayList<String>();
-    public ArrayList<String> logoSourcesNames = new ArrayList<String>();
     public ArrayList<Bitmap> logosBitmaps = new ArrayList<Bitmap>();
     public ListView listView;
+    public APIMap apiMap;
+    public Set<String> listCategories;
     public ProgressBar progressBar;
     public TextView txtGettingJornals, txtGettingLogos;
 
@@ -80,6 +74,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void formatListCategories () {
+        ArrayList<String> category = new ArrayList<>();
+        for (Source src : apiMap.getSources()) {
+            category.add(src.getCategory().substring(0,1).toUpperCase()+src.getCategory().substring(1));
+        }
+        listCategories = new HashSet<String>(category);
+        category.clear();
+        category.addAll(listCategories);
+        Collections.sort(category);
+        for (String str: category) {
+            Log.i("Categoria",str);
+        }
+    }
+
     public void getURLLogos () {
         int sourcesSize = Integer.parseInt(sourcesNames.get(0));
         String [] logosURLs = new String[sourcesSize];
@@ -102,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class SourcesAPI extends AsyncTask<String, Void, ArrayList<String>> {
+    private class SourcesAPI extends AsyncTask<String, Void, APIMap> {
 
         protected void onPreExecute () {
             super.onPreExecute();
@@ -112,58 +120,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected ArrayList<String> doInBackground(String... urls) {
-            String result = "";
-            ArrayList<String> resultFinal = new ArrayList<String >();
-            URL urlNewsAPI;
-            HttpURLConnection urlConnection = null;
+        protected APIMap doInBackground(String... urls) {
             try {
-                urlNewsAPI = new URL(urls[0]);
-                urlConnection = (HttpURLConnection) urlNewsAPI.openConnection();
-                InputStream inputStream = urlConnection.getInputStream();
-                InputStreamReader reader = new InputStreamReader(inputStream);
-                int data = reader.read();
-                while (data != -1) {
-                    char nextChar = (char) data;
-                    result += nextChar;
-                    data = reader.read();
-                }
-
-                JSONObject jsonObjectFull = new JSONObject(result);
-                String sources = jsonObjectFull.getString("sources");
-                JSONArray jsonArray = new JSONArray(sources);
-                resultFinal.add(String.valueOf(jsonArray.length()));
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObjectSource = jsonArray.getJSONObject(i);
-                    resultFinal.add(jsonObjectSource.getString("name"));
-                }
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObjectURLSource = jsonArray.getJSONObject(i);
-                    resultFinal.add(jsonObjectURLSource.getString("url"));
-                }
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObjectLogoSource = jsonArray.getJSONObject(i);
-                    JSONObject jsonObjectLogos = jsonObjectLogoSource.getJSONObject("urlsToLogos");
-                    resultFinal.add(jsonObjectLogos.getString("medium"));
-                }
-                return resultFinal;
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+                ObjectMapper mapper = new ObjectMapper();
+                apiMap = mapper.readValue(new URL(urls[0]), APIMap.class);
+                return apiMap;
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<String> strings) {
-            super.onPostExecute(strings);
-            for (String str: strings) {
-                sourcesNames.add(str);
+        protected void onPostExecute(APIMap result) {
+            super.onPostExecute(result);
+            if (result != null) {
+                progressBar.setVisibility(View.GONE);
+                txtGettingJornals.setVisibility(View.GONE);
+                formatListCategories();
             }
-            progressBar.setVisibility(View.GONE);
-            txtGettingJornals.setVisibility(View.GONE);
-            getURLLogos();
         }
     }
 
