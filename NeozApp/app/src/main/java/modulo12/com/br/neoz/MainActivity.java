@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),"Tou Click In: " + sourcesNames.get(position+1),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Touch Click In: " + sourcesNames.get(position+1),Toast.LENGTH_LONG).show();
             }
         });
     }
