@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="modulo12.com.br.neoz.NewspapersList">
+    tools:context="modulo12.com.br.neoz.NewspapersListOld">
 
     <ProgressBar
         android:layout_width="200dp"

@@ -24,7 +24,7 @@ import modulo12.com.br.neoz.MapAPI.Source;
 
 import static modulo12.com.br.neoz.MapAPI.Links.LINK_NEWS_API;
 
-public class NewspapersList extends AppCompatActivity {
+public class NewspapersListOld extends AppCompatActivity {
 
     public String categorySelected;
     public ArrayList<Bitmap> logosJornals;
@@ -34,7 +34,7 @@ public class NewspapersList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newspapers_list);
+        setContentView(R.layout.activity_newspapers_list_old);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.rgb(219,124,0), android.graphics.PorterDuff.Mode.MULTIPLY);
         txtGettingNewspapers = (TextView) findViewById(R.id.txtGettingNewspapers);

@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         CardView cardView = (CardView) v;
         String category = cardView.getTag().toString();
         String categoryFormated = category.substring(0,1).toLowerCase()+category.substring(1);
-        Intent newspapersIntent = new Intent(MainActivity.this,NewspapersList.class);
+        Intent newspapersIntent = new Intent(MainActivity.this,NewsPapersViewer.class);
         newspapersIntent.putExtra("categorySelected",categoryFormated);
         startActivity(newspapersIntent);
     }
