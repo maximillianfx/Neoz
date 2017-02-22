@@ -37,6 +37,7 @@ public class NewsPapersViewer extends AppCompatActivity {
 
     public ProgressBar progressBar;
     public ArrayList<String> newspapersList;
+    public ArrayList<String> newspapersID;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -125,7 +126,7 @@ public class NewsPapersViewer extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1, newspapersList.get(position));
+            return PlaceholderFragment.newInstance(newspapersID.get(position));
         }
 
         @Override
@@ -170,8 +171,10 @@ public class NewsPapersViewer extends AppCompatActivity {
             if (result != null) {
                 progressBar.setVisibility(View.GONE);
                 newspapersList = new ArrayList<>();
+                newspapersID = new ArrayList<>();
                 for (Source src: result.getSources()) {
                     newspapersList.add(src.getName());
+                    newspapersID.add(src.getId());
                 }
                 Log.i("Resultado",result.getStatus());
                 setUpUI();
