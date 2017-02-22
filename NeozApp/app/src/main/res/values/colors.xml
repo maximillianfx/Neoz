@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#d76100</color>
-    <color name="colorPrimaryDark">#c85a00</color>
+    <color name="colorPrimary">#c55016</color>
+    <color name="colorPrimaryDark">#AD4613</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="loadingText">#985400</color>
+    <color name="splashScreenColor">#DB7C00</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

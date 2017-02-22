@@ -1,14 +1,19 @@
 <resources>
     <string name="app_name">Neoz</string>
 
-    <string name="titulo1">Governador em exercício do ES diz que pedirá mais reforços das tropas federais</string>
-    <string name="titulo2">Governo Temer pode sofrer com novos protestos devido à crise de segurança</string>
-    <string name="titulo3">Primeira Liga tem menor venda de ingressos desde sua criação</string>
-    <string name="desc1">Devido ao aumento da criminalidade em ES, forças armadas poderão ser intensificadas no estado</string>
-    <string name="desc2">Crise da segurança pública em ES pode intensificar protestos contra governo Temer</string>
-    <string name="desc3">A copa, criada em 2016, tem sua pior média de público</string>
-    <string name="data1">10:20</string>
-    <string name="data2">Ontem</string>
-    <string name="data3">06/02/2017</string>
+    <string name="categoryBusiness">Business</string>
+    <string name="categorySport">Sport</string>
+    <string name="categoryEntertainment">Entertainment</string>
+    <string name="categoryScienceNature">Science/Nature</string>
+    <string name="categoryTechnology">Technology</string>
+    <string name="categoryGeneral">General</string>
+    <string name="categoryMusic">Music</string>
+    <string name="categoryGaming">Gaming</string>
+    <string name="loadingNewspapers">Loading newspapers&#8230;</string>
+
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 
 </resources>
