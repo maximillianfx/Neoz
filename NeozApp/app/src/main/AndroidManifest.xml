@@ -38,9 +38,7 @@
         <activity
             android:name=".NewsPapersViewer"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

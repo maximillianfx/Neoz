@@ -30,7 +30,9 @@ import java.util.ArrayList;
 
 import modulo12.com.br.neoz.MapAPI.Source;
 
+import static modulo12.com.br.neoz.MapAPI.Links.API_KEY;
 import static modulo12.com.br.neoz.MapAPI.Links.LINK_NEWS_API;
+import static modulo12.com.br.neoz.MapAPI.Links.LINK_SOURCE_API;
 
 public class NewsPapersViewer extends AppCompatActivity {
 
@@ -77,6 +79,7 @@ public class NewsPapersViewer extends AppCompatActivity {
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -84,8 +87,37 @@ public class NewsPapersViewer extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.i("Entrou em","onpagescrolled");
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.i("Entrou em","onpageselected");
+
+                /*Fragment fr = mSectionsPagerAdapter.getItem(position);
+                if (fr instanceof PlaceholderFragment) {
+                    ((PlaceholderFragment) fr).updateContent(LINK_SOURCE_API+newspapersID.get(position)+API_KEY);
+                }
+               Log.i("Saiu de","onpageselected");*/
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Log.i("Entrou em","onpagescrollstatechanged");
+            }
+        });
+
+
         Log.i("Saiu de","SETUPUI");
     }
+
+
 
 
     @Override
@@ -99,6 +131,7 @@ public class NewsPapersViewer extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i("Entrou em","onoptionsitemselected");
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -120,23 +153,29 @@ public class NewsPapersViewer extends AppCompatActivity {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            Log.i("saiu de","construtor de sectionspager");
         }
 
         @Override
         public Fragment getItem(int position) {
+            Log.i("Entrou em","getitem");
+            Log.i("Posicao Maluca",String.valueOf(position));
+
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(newspapersID.get(position));
+            return PlaceholderFragment.newInstance(LINK_SOURCE_API+newspapersID.get(position)+API_KEY);
         }
 
         @Override
         public int getCount() {
+            Log.i("Entrou em","getcount");
             // Numero de jornais listados nas tabs
             return newspapersList.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
+            Log.i("Entrou em","getpagetitle");
             return newspapersList.get(position);
         }
     }
@@ -181,4 +220,8 @@ public class NewsPapersViewer extends AppCompatActivity {
             }
         }
     }
+
+    /*-------------------------------------------------------------------------------------------------*/
+
+
 }

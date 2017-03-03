@@ -72,49 +72,6 @@ public class NewspapersListOld extends AppCompatActivity {
         protected void onPostExecute(APIMap result) {
             super.onPostExecute(result);
             if (result != null) {
-                LogosDownloader logosDownloader = new LogosDownloader();
-                logosDownloader.execute(result.getSources());
-            }
-        }
-    }
-
-    private class LogosDownloader extends AsyncTask<List<Source>, Void, ArrayList<Bitmap>> {
-
-        protected void onPreExecute () {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            txtGettingNewspapers.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected ArrayList<Bitmap> doInBackground(List<Source>... sources) {
-            Bitmap downloaded;
-            URL urlLogosNewsAPI;
-            HttpURLConnection urlConnection = null;
-            try {
-                for (Source src : sources[0]) {
-                    urlLogosNewsAPI = new URL(src.getUrlsToLogos().getMedium());
-                    urlConnection = (HttpURLConnection) urlLogosNewsAPI.openConnection();
-                    urlConnection.connect();
-                    InputStream inputStream = urlConnection.getInputStream();
-                    downloaded = BitmapFactory.decodeStream(inputStream);
-                    logosJornals.add(downloaded);
-                }
-                return logosJornals;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Bitmap> logos) {
-            super.onPostExecute(logos);
-            if (logos != null) {
-                progressBar.setVisibility(View.GONE);
-                txtGettingNewspapers.setVisibility(View.GONE);
-                //formatListView();
-                Log.i("LogosResult","Logos capturados");
             }
         }
     }

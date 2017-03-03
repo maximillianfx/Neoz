@@ -1,5 +1,8 @@
 package modulo12.com.br.neoz.Adapters;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +19,15 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
 
     private List<CardsData> listaDadosCartoes;
+    private Context context;
 
-    public CardsAdapter (List<CardsData> listaDadosCartoes) {
+    public CardsAdapter (Context context, List<CardsData> listaDadosCartoes) {
+        this.context = context;
         this.listaDadosCartoes = listaDadosCartoes;
+    }
+
+    public Context getContext () {
+        return this.context;
     }
 
     @Override
@@ -32,7 +41,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
         cardsViewHolder.tituloNoticia.setText(cardsData.tituloNoticia);
         cardsViewHolder.descricaoNoticia.setText(cardsData.descricaoNoticia);
         cardsViewHolder.dataNoticia.setText(cardsData.dataNoticia);
+        cardsViewHolder.horaNoticia.setText(cardsData.horaNoticia);
         cardsViewHolder.imagemNoticia.setImageBitmap(cardsData.imagemNoticia);
+        cardsViewHolder.linkNoticia = cardsData.linkNoticia;
     }
 
     @Override
@@ -49,6 +60,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
         protected TextView descricaoNoticia;
         protected TextView dataNoticia;
         protected ImageView imagemNoticia;
+        protected TextView horaNoticia;
+        protected String linkNoticia;
 
         public CardsViewHolder(View itemView) {
             super(itemView);
@@ -56,6 +69,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
             descricaoNoticia = (TextView) itemView.findViewById(R.id.txtDescricaoNoticia);
             dataNoticia = (TextView) itemView.findViewById(R.id.txtDataNoticia);
             imagemNoticia = (ImageView) itemView.findViewById(R.id.imgCard);
+            horaNoticia = (TextView)itemView.findViewById(R.id.txtHoraNoticia);
         }
     }
 }
