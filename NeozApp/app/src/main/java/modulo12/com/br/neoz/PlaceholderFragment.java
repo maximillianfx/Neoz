@@ -4,6 +4,7 @@ package modulo12.com.br.neoz;
  * Created by maximillianfx on 22/02/17.
  */
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -125,6 +127,8 @@ public class PlaceholderFragment extends Fragment {
         cardsDataList.clear();
         cardsAdapter.notifyDataSetChanged();
     }
+
+
 
     /*--------------------------------------AsynTask--------------------------------------------*/
 
